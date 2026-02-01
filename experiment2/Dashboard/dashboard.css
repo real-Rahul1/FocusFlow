@@ -1,0 +1,391 @@
+:root {
+  --bg: #0f1115;
+  --bg-light: #f5f7fb;
+  --card: #1b1e24;
+  --card-2: #ffffff;
+  --accent: #667eea;
+  --accent-2: #ff9f1c;
+  --calendar: #ff6300;
+  --text: #ffffff;
+  --text-dark: #000000;
+  --text-muted: #aaa;
+  --danger: #f44336;
+  --success: #4caf50;
+  --radius: 12px;
+  --gap: 16px;
+  --max-width: 1100px;
+  --fs-base: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 40px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+html { font-size: var(--fs-base); }
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing:antialiased;
+} 
+
+header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ccc;
+}
+
+.theme-toggle{
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: inherit;
+  padding:8px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:18px;
+  transition: background .2s, color .2s, transform .12s;
+}
+.theme-toggle:active{ transform: scale(.98); }
+
+/* Light theme overrides */
+html[data-theme="light"]{
+  --bg: #f5f7fb;
+  --bg-light: #ffffff;
+  --card: #f1f3ff;
+  --card-2: #ffffff;
+  --accent: #667eea;
+  --accent-2: #ff9f1c;
+  --calendar: #ffd9b3;
+  --text: #0b1220;
+  --text-dark: #0b1220;
+  --text-muted: #444;
+  --danger: #d32f2f;
+  --success: #059669;
+}
+
+/* keep a few high-level layout tweaks when in light mode */
+html[data-theme="light"] header { color: #333; }
+html[data-theme="light"] footer { background: #f0f2f7; color: #444; }
+
+
+
+.timer {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.timer h1 {
+  font-size: var(--fs-xl);
+  letter-spacing: 2px;
+} 
+
+.timer button {
+  margin-top: 15px;
+  background: var(--accent-2);
+  border: none;
+  color: var(--text-dark);
+  font-size: 1.25rem;
+  padding: 12px 18px;
+  border-radius: 50%;
+  cursor: pointer;
+} 
+
+.tasks {
+  padding: 0 20px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1b1e24;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Make buttons wrap on small screens for better fit */
+@media (max-width: 420px) {
+  .task { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .task button { width: auto; }
+}
+
+.task span {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.duration {
+  color: #aaa;
+}
+
+/*====================calender=========================*/
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  position: static;
+  top: auto;
+  right: auto;
+}
+
+.calendar-box { width: 100%; max-width: 450px; }
+
+/* Restore previous fixed positioning on wide screens */
+@media (min-width: 900px) {
+  .container { justify-content: flex-end; padding: 40px; position: fixed; top: 120px; right: 30px; }
+}
+
+
+.calendar-box {
+  width: 100%;
+  max-width: 450px;
+  background: var(--calendar);
+  padding: 20px;
+  border-radius: var(--radius);
+  position: fixed;
+  top: 210px;
+  right: 30px;
+} 
+
+.calendar-box h3 {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 12px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+/* GitHub-style blocks */
+.day {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  border-radius: 4px;
+  background: var(--card-2);
+} 
+
+/* Green intensity levels */
+.level-1 { background: #bbf7d0; }
+.level-2 { background: #4ade80; }
+.level-3 { background: #22c55e; }
+.level-4 { background: #16a34a; }
+
+.day span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  color: #020617;
+}
+
+/* ===============task=================== */
+
+
+
+/* LEFT */
+.left-panel{width:28%}
+.box{
+  background:white;
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 6px 15px rgba(0,0,0,.12);
+  margin-bottom:14px
+}
+.box h3{text-align:center;margin:0}
+
+
+/* RIGHT */
+.right-panel{width:72%}
+
+/* GLOBAL TIMER */
+.global-box{
+  background:#0f1115;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 6px 15px rgba(0,0,0,.12);
+  text-align:center;
+  margin-bottom:20px;
+  color: rgb(238, 236, 236);
+  
+  width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Slightly smaller text on narrow screens */
+@media (max-width: 420px) { .global-box .total{ font-size: 28px; } }
+
+.global-box .date{font-size:14px;color:#555}
+.global-box .total{font-size:40px;font-weight:bold}
+
+/* SUBJECT */
+.subject{
+  background:white;
+  padding:12px;
+  margin-bottom:14px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+  color: #000;
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto 10px auto;
+}
+
+.subject-row{flex-wrap:wrap; gap:8px}
+
+.subject-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:bold;
+  font-size: 25px;
+}
+.actions{display:flex;align-items:center;gap:6px}
+.time{color:#555;font-weight:normal}
+
+/* TOPICS */
+.topics{margin-top:8px}
+.topic{
+  background:#f1f3ff;
+  padding:6px 8px;
+  border-radius:6px;
+  margin-bottom:6px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:17px
+}
+
+/* BUTTONS */
+.play{background:var(--success);color:var(--card-2);border:none;padding:3px 6px;cursor:pointer;border-radius:4px}
+.delete{background:var(--danger);color:var(--card-2);border:none;padding:3px 6px;cursor:pointer;border-radius:4px}
+.add-topic{
+  background:var(--accent);
+  color:var(--card-2);
+  border:none;
+  padding:5px 8px;
+  margin-top:6px;
+  cursor:pointer;
+  border-radius:4px
+} 
+
+/* ADD SUBJECT */
+.add-btn{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:56px;
+  height:56px;
+  font-size:30px;
+  border-radius:50%;
+  border:none;
+  background:#667eea;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.15)
+}
+
+@media (min-width: 900px) {
+  .add-btn{ right:70px; bottom:70px; width:70px; height:70px; font-size:40px; box-shadow:0 8px 20px rgba(0,0,0,.25); }
+footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px;
+  background: #16181d;
+  font-size: 14px;
+  color: #aaa;
+}
+
+#analytics{
+  background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+
+}
+
+.ionicons{
+  font-size: 20px;
+}
+
+#home{
+  background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+
+    
+}
+
+.profile-btn{
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-dropdown{
+  position: fixed;
+  right: 30px;
+  bottom: 82px;
+  background: #16181d;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  width: 220px;
+  z-index: 2000;
+}
+
+.profile-dropdown.hidden{ display:none; }
+
+.profile-info{ margin-bottom: 8px; }
+.profile-info #profileName{ font-weight:bold; }
+.profile-info #profileEmail{ font-size:12px; color:#aaa; }
+
+.profile-actions{ display:flex; justify-content:space-between; gap:8px; }
+.profile-actions .danger{ background:#d32f2f; color:#fff; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; }
+.profile-actions .primary{ background:#4caf50; color:#fff; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; }
+.hidden{ display:none !important; }
+
+/* Desktop breakpoint: restore some desktop-only fixed sizing */
+@media (min-width: 900px) {
+  .task { width: 900px; margin-left: 0; margin-right: 0; }
+  .subject { width: 900px; margin: 30px 0 10px 30px; }
+  .calendar-box { width:450px; }
+} 
+}
